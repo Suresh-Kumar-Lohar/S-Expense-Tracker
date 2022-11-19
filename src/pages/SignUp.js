@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import classes from './SignUp.module.css'
+
 const SignUp = () => {
+  const history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
@@ -8,8 +11,8 @@ const SignUp = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault()
-    if (email && password && confirmPass) {
-      if (password === confirmPass) {
+    if (email && password && (confirmPass || isUser)) {
+      if (password === confirmPass || isUser) {
         console.log(email, password, confirmPass)
         let url
         if (isUser) {
@@ -37,6 +40,7 @@ const SignUp = () => {
             // authCtx.login(data.idToken, userName)
             console.log(data)
             // history.replace('/store')
+            history.replace('/welcome')
             setEmail('')
             setPassword('')
             setConfirmPass('')
@@ -88,15 +92,18 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className={classes.enterVal}>
-            <input
-              id='confirmPass'
-              type='password'
-              placeholder='Confirm Password'
-              value={confirmPass}
-              onChange={(e) => setConfirmPass(e.target.value)}
-            />
-          </div>
+          {!isUser && (
+            <div className={classes.enterVal}>
+              <input
+                id='confirmPass'
+                type='password'
+                placeholder='Confirm Password'
+                value={confirmPass}
+                onChange={(e) => setConfirmPass(e.target.value)}
+              />
+            </div>
+          )}
+
           <button type='submit'>Submit</button>
           <button className={classes.btn2} onClick={userHandler}>
             {isUser ? 'SignUp' : 'Have an account ? Login'}

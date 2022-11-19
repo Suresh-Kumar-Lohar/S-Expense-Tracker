@@ -1,11 +1,21 @@
 import Header from './components/Header/Header'
 import SignUp from './pages/SignUp'
+import { Route, Redirect } from 'react-router-dom'
+import Welcome from './pages/Welcome'
 
 function App() {
   return (
     <div>
       <Header />
-      <SignUp />
+      <Route path='/'>
+        <Redirect to='/login' />
+      </Route>
+      <Route path='/login'>
+        <SignUp />
+      </Route>
+      <Route path='/welcome'>
+        <Welcome />
+      </Route>
     </div>
   )
 }
