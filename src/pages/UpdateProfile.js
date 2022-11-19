@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import classes from './UpdateProfile.module.css'
 import axios from 'axios'
 import AuthContext from '../store/auth-context'
@@ -7,6 +7,24 @@ const UpdateProfile = () => {
   const authCtx = useContext(AuthContext)
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.post(
+          'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
+          { idToken: authCtx.token }
+        )
+        const user = res.data.users[0]
+        console.log(user)
+        setName(user.displayName)
+        setUrl(user.photoUrl)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [])
 
   const updateHandler = async (e) => {
     e.preventDefault()
@@ -24,17 +42,10 @@ const UpdateProfile = () => {
       data
     )
     console.log(resp)
-    try {
-      const user = await axios.post(
-        'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
-        { idToken: authCtx.token }
-      )
-      console.log('------------------------------------------------------')
-      // const res = user.json()
-      console.log(user)
-    } catch (error) {
-      console.log(error)
-    }
+    const user = resp.data
+    console.log(user)
+    setName(user.displayName)
+    setUrl(user.photoUrl)
   }
 
   return (
@@ -61,6 +72,7 @@ const UpdateProfile = () => {
             <input
               id='name'
               type='text'
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -69,6 +81,7 @@ const UpdateProfile = () => {
             <input
               id='image'
               type='url'
+              value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
           </div>
