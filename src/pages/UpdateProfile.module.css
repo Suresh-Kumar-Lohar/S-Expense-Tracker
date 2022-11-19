@@ -47,7 +47,7 @@ p {
 }
 
 .header {
-  width: 92%;
+  width: 93%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,12 +75,16 @@ p {
   justify-content: space-between;
 }
 
+.in {
+  width: 50%;
+}
+
 label {
   font-weight: bold;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 input {
-  width: 250px;
+  width: 50%;
   margin: 1rem 1rem 0;
 }

@@ -3,6 +3,7 @@ import SignUp from './pages/SignUp'
 import { Route, Redirect } from 'react-router-dom'
 import Welcome from './pages/Welcome'
 import UpdateProfile from './pages/UpdateProfile'
+import Verify from './pages/Verify'
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
       </Route>
       <Route path='/welcome'>
         <Welcome />
+      </Route>
+      <Route path='/verify'>
+        <Verify />
       </Route>
       <Route path='/updateProfile'>
         <UpdateProfile />

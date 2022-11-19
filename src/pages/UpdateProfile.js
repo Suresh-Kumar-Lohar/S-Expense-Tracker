@@ -16,6 +16,7 @@ const UpdateProfile = () => {
           { idToken: authCtx.token }
         )
         const user = res.data.users[0]
+        console.log('user')
         console.log(user)
         setName(user.displayName)
         setUrl(user.photoUrl)
@@ -67,7 +68,7 @@ const UpdateProfile = () => {
           <button>Cancel</button>
         </div>
         <div className={classes.inputDetails}>
-          <div>
+          <div className={classes.in}>
             <label htmlFor='name'>Full Name</label>
             <input
               id='name'
@@ -76,7 +77,7 @@ const UpdateProfile = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div>
+          <div className={classes.in}>
             <label htmlFor='image'>Profile Photo URL</label>
             <input
               id='image'

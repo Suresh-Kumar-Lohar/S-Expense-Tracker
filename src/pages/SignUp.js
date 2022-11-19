@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import classes from './SignUp.module.css'
 import AuthContext from '../store/auth-context'
+import axios from 'axios'
 
 const SignUp = () => {
   const authCtx = useContext(AuthContext)
@@ -41,8 +42,19 @@ const SignUp = () => {
             const data = await resp.json()
             authCtx.login(data.idToken, email)
             console.log(data)
-            // history.replace('/store')
-            history.replace('/welcome')
+            if (!isUser) {
+              const mailVerify = await axios.post(
+                'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
+                {
+                  requestType: 'VERIFY_EMAIL',
+                  idToken: data.idToken,
+                }
+              )
+              console.log(mailVerify)
+              history.replace('/verify')
+            } else {
+              history.replace('/welcome')
+            }
             setEmail('')
             setPassword('')
             setConfirmPass('')
