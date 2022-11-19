@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import classes from './SignUp.module.css'
+import AuthContext from '../store/auth-context'
 
 const SignUp = () => {
+  const authCtx = useContext(AuthContext)
   const history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -37,7 +39,7 @@ const SignUp = () => {
           })
           if (resp.ok) {
             const data = await resp.json()
-            // authCtx.login(data.idToken, userName)
+            authCtx.login(data.idToken, email)
             console.log(data)
             // history.replace('/store')
             history.replace('/welcome')
