@@ -70,3 +70,12 @@
 .formInside .btn2:hover {
   background-color: rgb(141, 218, 172);
 }
+
+.formInside p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.formInside a:hover {
+  color: rgb(6, 6, 136);
+}

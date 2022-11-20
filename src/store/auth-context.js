@@ -27,17 +27,11 @@ export const AuthContextProvider = (props) => {
   const userIsLoggedIn = !!token
 
   const loginHandler = (token, mail) => {
-    let tmp1 = mail.split('@')[0]
-    let tmp2 = mail.split('@')[1]
-    let tmp3 = tmp2.split('.')[0]
-    let tmp4 = tmp2.split('.')[1]
-    let finalMail = tmp1 + tmp3 + tmp4
-    console.log(finalMail)
-    setEmail(finalMail)
+    setEmail(mail)
     setToken(token)
     const details = {
       token: token,
-      mail: finalMail,
+      mail: mail,
     }
     localStorage.setItem('details', JSON.stringify(details))
   }

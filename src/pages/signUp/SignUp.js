@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import classes from './SignUp.module.css'
-import AuthContext from '../store/auth-context'
+import AuthContext from '../../store/auth-context'
 import axios from 'axios'
 
 const SignUp = () => {
@@ -16,7 +16,7 @@ const SignUp = () => {
     e.preventDefault()
     if (email && password && (confirmPass || isUser)) {
       if (password === confirmPass || isUser) {
-        console.log(email, password, confirmPass)
+        // console.log(email, password, confirmPass)
         let url
         if (isUser) {
           url =
@@ -41,7 +41,7 @@ const SignUp = () => {
           if (resp.ok) {
             const data = await resp.json()
             authCtx.login(data.idToken, email)
-            console.log(data)
+            // console.log(data)
             if (!isUser) {
               const mailVerify = await axios.post(
                 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
@@ -50,7 +50,7 @@ const SignUp = () => {
                   idToken: data.idToken,
                 }
               )
-              console.log(mailVerify)
+              // console.log(mailVerify)
               history.replace('/verify')
             } else {
               history.replace('/welcome')
@@ -117,7 +117,9 @@ const SignUp = () => {
               />
             </div>
           )}
-
+          <Link to='/forgot-password'>
+            <p>Forgot Password?</p>
+          </Link>
           <button type='submit'>Submit</button>
           <button className={classes.btn2} onClick={userHandler}>
             {isUser ? 'SignUp' : 'Have an account ? Login'}

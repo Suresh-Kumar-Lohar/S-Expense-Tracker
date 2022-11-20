@@ -1,9 +1,10 @@
 import Header from './components/Header/Header'
-import SignUp from './pages/SignUp'
+import SignUp from './pages/signUp/SignUp'
 import { Route, Redirect } from 'react-router-dom'
 import Welcome from './pages/Welcome'
 import UpdateProfile from './pages/UpdateProfile'
-import Verify from './pages/Verify'
+import Verify from './pages/signUp/Verify'
+import ForgotPassword from './pages/signUp/ForgotPassword'
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
       </Route>
       <Route path='/updateProfile'>
         <UpdateProfile />
+      </Route>
+      <Route path='/forgot-password'>
+        <ForgotPassword />
       </Route>
     </div>
   )
