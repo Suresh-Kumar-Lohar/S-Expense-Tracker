@@ -14,7 +14,7 @@ const Verify = () => {
       let tmp2 = tmp1.split('&apiKey=')[0]
       // console.log(tmp2)
       const resp = await axios.post(
-        'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
+        'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74',
         {
           oobCode: tmp2,
         }

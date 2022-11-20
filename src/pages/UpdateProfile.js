@@ -12,7 +12,7 @@ const UpdateProfile = () => {
     async function fetchData() {
       try {
         const res = await axios.post(
-          'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
+          'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74',
           { idToken: authCtx.token }
         )
         const user = res.data.users[0]
@@ -39,7 +39,7 @@ const UpdateProfile = () => {
     const body = JSON.stringify(data)
     console.log(data)
     const resp = await axios.post(
-      'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
+      'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74',
       data
     )
     console.log(resp)

@@ -20,10 +20,10 @@ const SignUp = () => {
         let url
         if (isUser) {
           url =
-            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA'
+            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74'
         } else {
           url =
-            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA'
+            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74'
         }
 
         try {
@@ -44,7 +44,7 @@ const SignUp = () => {
             // console.log(data)
             if (!isUser) {
               const mailVerify = await axios.post(
-                'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
+                'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74',
                 {
                   requestType: 'VERIFY_EMAIL',
                   idToken: data.idToken,

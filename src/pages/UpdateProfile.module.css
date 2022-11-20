@@ -77,14 +77,18 @@ p {
 
 .in {
   width: 50%;
+  display: flex;
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: center; */
 }
 
-label {
+.in label {
   font-weight: bold;
-  margin: 0.5rem;
+  margin: 0;
 }
-
-input {
-  width: 50%;
-  margin: 1rem 1rem 0;
+.in input {
+  margin: 0;
+  width: 60%;
+  margin: 0 1rem 0;
 }

@@ -1,15 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import classes from './AddExpense.module.css'
+import axios from 'axios'
+import ExpenseContext from '../../store/expense-context'
 
 const AddExpense = () => {
+  const expenseCtx = useContext(ExpenseContext)
   const [money, setMoney] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('Food')
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
-    // if()
-    console.log(money, description, category)
+    if (money && description && category) {
+      const expense = {
+        money: money,
+        description: description,
+        category: category,
+      }
+      expenseCtx.addExpense(expense)
+      setCategory('Food')
+      setDescription('')
+      setMoney('')
+    } else {
+      alert('Please enter all details...')
+    }
   }
 
   return (
@@ -49,7 +63,7 @@ const AddExpense = () => {
               <option value='Salary'>Salary</option>
             </select>
           </div>
-          <button type='submit'>Submit</button>
+          <button type='Submit'>Submit</button>
         </div>
       </form>
     </div>

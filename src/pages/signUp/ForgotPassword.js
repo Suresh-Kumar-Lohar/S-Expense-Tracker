@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     try {
       setIsLoading(true)
       const resp = await axios.post(
-        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAVz545erTZB78i1xj1UEkV64Wt0UBKjRA',
+        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74',
         {
           requestType: 'PASSWORD_RESET',
           email: passEmail,
