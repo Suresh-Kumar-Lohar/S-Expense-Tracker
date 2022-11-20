@@ -3,11 +3,15 @@ import axios from 'axios'
 
 const ExpenseContext = React.createContext({
   expenses: [],
+  editData: {},
   addExpense: () => {},
+  deleteExpense: (id) => {},
+  editExpense: () => {},
 })
 
 export const ExpenseContextProvider = (props) => {
   const [expenses, setExpenses] = useState([])
+  const [editData, setEditData] = useState({})
 
   useEffect(() => {
     fetchHandler()
@@ -67,10 +71,55 @@ export const ExpenseContextProvider = (props) => {
     }
   }
 
+  const deleteExpenseHandler = async (id) => {
+    try {
+      const resp = await axios.delete(
+        `https://expense-tracker-app-a5fd4-default-rtdb.firebaseio.com/expenses/${id}.json`
+      )
+      console.log(resp)
+      if (resp.status === 200) {
+        console.log('ExpenseDeleted successfully...')
+        await fetchHandler()
+      } else {
+        alert('Something went wrong please try again...')
+      }
+    } catch (error) {
+      window.alert('Something went wrong please try again...')
+      console.log(error.message)
+    }
+  }
+
+  const editExpenseHandler = async (item) => {
+    try {
+      const resp = await axios.delete(
+        `https://expense-tracker-app-a5fd4-default-rtdb.firebaseio.com/expenses/${editData.id}.json`
+      )
+      console.log(resp)
+      if (resp.status === 200) {
+        console.log('ExpenseDeleted successfully...')
+      } else {
+        alert('Something went wrong please try again...')
+      }
+    } catch (error) {
+      window.alert('Something went wrong please try again...')
+      console.log(error.message)
+    }
+    await addExpenseHandler(item)
+    setEditData({})
+  }
+
+  const setEditDataHandler = (item) => {
+    setEditData(item)
+  }
+
   const contextValue = {
     expenses: expenses,
+    editData: editData,
     addExpense: addExpenseHandler,
     fetchExpenses: fetchHandler,
+    deleteExpense: deleteExpenseHandler,
+    setEditItem: setEditDataHandler,
+    editExpense: editExpenseHandler,
   }
 
   return (

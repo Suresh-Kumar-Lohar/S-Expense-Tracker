@@ -8,6 +8,7 @@ import Verify from './pages/signUp/Verify'
 import ForgotPassword from './pages/signUp/ForgotPassword'
 import ExpensePage from './pages/ExpensePage/ExpensePage'
 import AuthContext from './store/auth-context'
+import EditExpense from './pages/ExpensePage/EditExpense'
 
 function App() {
   const authCtx = useContext(AuthContext)
@@ -38,6 +39,10 @@ function App() {
       <Route path='/expenses'>
         {!authCtx.isLoggedIn && <Redirect to='/login' />}
         {authCtx.isLoggedIn && <ExpensePage />}
+      </Route>
+      <Route path='/edit-expense'>
+        {!authCtx.isLoggedIn && <Redirect to='/login' />}
+        {authCtx.isLoggedIn && <EditExpense />}
       </Route>
     </div>
   )
