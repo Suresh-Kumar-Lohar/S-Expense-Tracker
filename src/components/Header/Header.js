@@ -1,29 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import classes from './Header.module.css'
-import { NavLink } from 'react-router-dom'
-// import CartContext from '../../store/cart-context'
+import { NavLink, useHistory } from 'react-router-dom'
+import AuthContext from '../../store/auth-context'
 const Header = () => {
-  // const cartCtx = useContext(CartContext)
+  const authCtx = useContext(AuthContext)
+  const history = useHistory()
+
+  const logoutHandler = (e) => {
+    e.preventDefault()
+
+    authCtx.logout()
+    history.replace('/login')
+  }
 
   return (
     <header className={classes.header}>
-      {/* <h4>E-commerce</h4> */}
       <ul className={classes.navList}>
-        <li>
-          {/* <NavLink activeClassName={classes.active} to='/home'> */}
-          HOME
-          {/* </NavLink> */}
-        </li>
-        <li>
-          {/* <NavLink activeClassName={classes.active} to='/store'> */}
-          PRODUCTS
-          {/* </NavLink> */}
-        </li>
-        <li>
-          {/* <NavLink activeClassName={classes.active} to='/about'> */}
-          ABOUT Us
-          {/* </NavLink> */}
-        </li>
+        <li>HOME</li>
+        <li>PRODUCTS</li>
+        <li>ABOUT Us</li>
+        {authCtx.isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
       </ul>
     </header>
   )
