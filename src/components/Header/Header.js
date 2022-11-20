@@ -16,9 +16,15 @@ const Header = () => {
   return (
     <header className={classes.header}>
       <ul className={classes.navList}>
-        <li>HOME</li>
-        <li>PRODUCTS</li>
-        <li>ABOUT Us</li>
+        <NavLink to='/welcome' activeClassName={classes.active}>
+          <li>HOME</li>
+        </NavLink>
+        <NavLink to='/expenses' activeClassName={classes.active}>
+          <li>Expenses</li>
+        </NavLink>
+        <NavLink to='/updateProfile' activeClassName={classes.active}>
+          <li>Profile</li>
+        </NavLink>
         {authCtx.isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
       </ul>
     </header>

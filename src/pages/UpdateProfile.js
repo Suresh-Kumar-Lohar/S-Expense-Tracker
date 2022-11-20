@@ -16,8 +16,8 @@ const UpdateProfile = () => {
           { idToken: authCtx.token }
         )
         const user = res.data.users[0]
-        console.log('user')
-        console.log(user)
+        // console.log('user')
+        // console.log(user)
         setName(user.displayName)
         setUrl(user.photoUrl)
       } catch (error) {
