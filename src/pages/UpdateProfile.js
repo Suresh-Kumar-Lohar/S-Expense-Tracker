@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import classes from './UpdateProfile.module.css'
 import axios from 'axios'
-import AuthContext from '../store/auth-context'
+import { useSelector } from 'react-redux'
 
 const UpdateProfile = () => {
-  const authCtx = useContext(AuthContext)
+  const auth = useSelector((state) => state.auth)
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
 
@@ -13,7 +13,7 @@ const UpdateProfile = () => {
       try {
         const res = await axios.post(
           'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74',
-          { idToken: authCtx.token }
+          { idToken: auth.token }
         )
         const user = res.data.users[0]
         // console.log('user')
@@ -29,14 +29,13 @@ const UpdateProfile = () => {
 
   const updateHandler = async (e) => {
     e.preventDefault()
-    console.log(name, url)
+    // console.log(name, url)
     const data = {
-      idToken: authCtx.token,
+      idToken: auth.token,
       displayName: name,
       photoUrl: url,
       returnSecureToken: false,
     }
-    const body = JSON.stringify(data)
     console.log(data)
     const resp = await axios.post(
       'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74',

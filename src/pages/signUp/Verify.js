@@ -23,8 +23,6 @@ const Verify = () => {
       if (resp.data.emailVerified === true) {
         console.log(resp)
         history.replace('/welcome')
-      } else {
-        alert('Please enter valid link...')
       }
     } catch (error) {
       window.alert('Please enter valid link...')

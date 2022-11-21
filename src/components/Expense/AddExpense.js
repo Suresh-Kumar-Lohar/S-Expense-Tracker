@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import classes from './AddExpense.module.css'
 import axios from 'axios'
-import ExpenseContext from '../../store/expense-context'
+import { expenseActions } from '../../store/expenseSlice'
 
 const AddExpense = () => {
-  const expenseCtx = useContext(ExpenseContext)
+  const dispatch = useDispatch()
   const [money, setMoney] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('Food')
@@ -17,7 +18,46 @@ const AddExpense = () => {
         description: description,
         category: category,
       }
-      expenseCtx.addExpense(expense)
+      try {
+        const resp = await axios.post(
+          'https://expense-tracker-app-a5fd4-default-rtdb.firebaseio.com/expenses.json',
+          {
+            body: JSON.stringify(expense),
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        )
+        if (resp.status === 200) {
+          const res = await axios.get(
+            'https://expense-tracker-app-a5fd4-default-rtdb.firebaseio.com/expenses.json'
+          )
+          if (res.status === 200) {
+            const data = res.data
+
+            const loadArray = []
+            for (const key in data) {
+              const parsedData = JSON.parse(data[key].body)
+              // console.log(parsedData)
+              loadArray.unshift({
+                id: key,
+                money: parsedData.money,
+                description: parsedData.description,
+                category: parsedData.category,
+              })
+            }
+            console.log(loadArray)
+            dispatch(expenseActions.addExpense(loadArray))
+          } else {
+            alert('Something went wrong please Refresh Page...')
+          }
+        } else {
+          alert('Something went wrong...')
+        }
+      } catch (error) {
+        window.alert('Please try again...')
+        console.log(error.message)
+      }
       setCategory('Food')
       setDescription('')
       setMoney('')

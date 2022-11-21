@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useSelector } from 'react-redux'
 import Header from './components/Header/Header'
 import SignUp from './pages/signUp/SignUp'
 import { Route, Redirect } from 'react-router-dom'
@@ -7,11 +7,10 @@ import UpdateProfile from './pages/UpdateProfile'
 import Verify from './pages/signUp/Verify'
 import ForgotPassword from './pages/signUp/ForgotPassword'
 import ExpensePage from './pages/ExpensePage/ExpensePage'
-import AuthContext from './store/auth-context'
 import EditExpense from './pages/ExpensePage/EditExpense'
 
 function App() {
-  const authCtx = useContext(AuthContext)
+  const isAuth = useSelector((state) => state.auth.isLoggedIn)
 
   return (
     <div>
@@ -23,26 +22,26 @@ function App() {
         <SignUp />
       </Route>
       <Route path='/welcome'>
-        {!authCtx.isLoggedIn && <Redirect to='/login' />}
-        {authCtx.isLoggedIn && <Welcome />}
+        {!isAuth && <Redirect to='/login' />}
+        {isAuth && <Welcome />}
       </Route>
       <Route path='/verify'>
         <Verify />
       </Route>
       <Route path='/updateProfile'>
-        {!authCtx.isLoggedIn && <Redirect to='/login' />}
-        {authCtx.isLoggedIn && <UpdateProfile />}
+        {!isAuth && <Redirect to='/login' />}
+        {isAuth && <UpdateProfile />}
       </Route>
       <Route path='/forgot-password'>
         <ForgotPassword />
       </Route>
       <Route path='/expenses'>
-        {!authCtx.isLoggedIn && <Redirect to='/login' />}
-        {authCtx.isLoggedIn && <ExpensePage />}
+        {!isAuth && <Redirect to='/login' />}
+        {isAuth && <ExpensePage />}
       </Route>
       <Route path='/edit-expense'>
-        {!authCtx.isLoggedIn && <Redirect to='/login' />}
-        {authCtx.isLoggedIn && <EditExpense />}
+        {!isAuth && <Redirect to='/login' />}
+        {isAuth && <EditExpense />}
       </Route>
     </div>
   )

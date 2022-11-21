@@ -1,11 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import classes from './SignUp.module.css'
-import AuthContext from '../../store/auth-context'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { authActions } from '../../store/authSlice'
 
 const SignUp = () => {
-  const authCtx = useContext(AuthContext)
+  const dispatch = useDispatch()
   const history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -40,8 +41,12 @@ const SignUp = () => {
           })
           if (resp.ok) {
             const data = await resp.json()
-            authCtx.login(data.idToken, email)
-            // console.log(data)
+            localStorage.setItem(
+              'details',
+              JSON.stringify({ token: data.idToken, email: email })
+            )
+            dispatch(authActions.login({ token: data.idToken, email }))
+
             if (!isUser) {
               const mailVerify = await axios.post(
                 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyA-jeJWjkeZO9L8-iw8IbwEjyrI4TOgS74',
@@ -51,7 +56,9 @@ const SignUp = () => {
                 }
               )
               // console.log(mailVerify)
-              history.replace('/verify')
+              if (mailVerify.status === 200) {
+                history.replace('/verify')
+              }
             } else {
               history.replace('/welcome')
             }
@@ -79,8 +86,8 @@ const SignUp = () => {
   }
 
   const userHandler = (e) => {
-    setIsUser(!isUser)
     e.preventDefault()
+    setIsUser(!isUser)
   }
 
   return (

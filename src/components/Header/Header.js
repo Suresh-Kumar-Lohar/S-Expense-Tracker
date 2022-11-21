@@ -1,15 +1,18 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import classes from './Header.module.css'
 import { NavLink, useHistory } from 'react-router-dom'
-import AuthContext from '../../store/auth-context'
+import { useDispatch, useSelector } from 'react-redux'
+import { authActions } from '../../store/authSlice'
+
 const Header = () => {
-  const authCtx = useContext(AuthContext)
+  const dispatch = useDispatch()
+  const { isLoggedIn } = useSelector((state) => state.auth)
   const history = useHistory()
 
   const logoutHandler = (e) => {
     e.preventDefault()
 
-    authCtx.logout()
+    dispatch(authActions.logout())
     history.replace('/login')
   }
 
@@ -25,7 +28,7 @@ const Header = () => {
         <NavLink to='/updateProfile' activeClassName={classes.active}>
           <li>Profile</li>
         </NavLink>
-        {authCtx.isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
+        {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
       </ul>
     </header>
   )

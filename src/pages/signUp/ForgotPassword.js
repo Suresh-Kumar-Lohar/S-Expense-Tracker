@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react'
-import AuthContext from '../../store/auth-context'
+import React, { useState } from 'react'
 import classes from './ForgotPassword.module.css'
 import logo from '../../assets/password.jpg'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const ForgotPassword = () => {
-  const authCtx = useContext(AuthContext)
   const [passEmail, setPassEmail] = useState('')
   const [mailSent, setMailSent] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -44,7 +42,7 @@ const ForgotPassword = () => {
   return (
     <div className={classes.forgotPassword}>
       <div className={classes.container}>
-        <img src={logo} alt='image of lock' />
+        <img src={logo} alt='a lock' />
         <div className={classes.enterLink}>
           {isLoading && <h4>Wait a second ! Loading...</h4>}
           {!isLoading && mailSent && <h4>Reset email has sent ...</h4>}
