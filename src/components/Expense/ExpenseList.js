@@ -46,8 +46,32 @@ const ExpenseList = () => {
     console.log(totalAmount)
   }
 
+  const csvDataDownloader = () => {
+    const csvData = [['Category', 'Money', 'Description']]
+
+    expenses.forEach((each) => {
+      let tmp = [each.category, each.money, each.description]
+      csvData.push(tmp)
+    })
+
+    function makeCSV(allRows) {
+      return allRows.map((r) => r.join(',')).join('\n')
+    }
+
+    const a2 = document.getElementById('a2')
+    const blob2 = new Blob([makeCSV(csvData)])
+    a2.href = URL.createObjectURL(blob2)
+  }
+
   return (
     <div className={classes.mainList}>
+      <div>
+        <a id='a2' download='file2.csv'>
+          <button onClick={csvDataDownloader} className={classes.btnc}>
+            Download Expenses
+          </button>
+        </a>
+      </div>
       {totalAmount > 10000 && (
         <button className={classes.premium}>Activate Premium</button>
       )}

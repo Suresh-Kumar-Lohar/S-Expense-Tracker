@@ -8,9 +8,15 @@ import Verify from './pages/signUp/Verify'
 import ForgotPassword from './pages/signUp/ForgotPassword'
 import ExpensePage from './pages/ExpensePage/ExpensePage'
 import EditExpense from './pages/ExpensePage/EditExpense'
+import './App.css'
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isLoggedIn)
+  const { isDarkTheme } = useSelector((state) => state.theme)
+
+  document.body.style = isDarkTheme
+    ? 'background: rgb(95, 91, 91);'
+    : 'background: ;'
 
   return (
     <div>

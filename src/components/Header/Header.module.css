@@ -1,3 +1,21 @@
+.themeD {
+  position: absolute;
+  z-index: 20;
+  top: 1rem;
+  left: 1rem;
+  background: rgb(56, 54, 54);
+  color: white;
+  padding: 0.4rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+}
+
+.themeD:hover {
+  background: rgb(22, 22, 22);
+  cursor: pointer;
+}
+
 .header {
   position: sticky;
   display: flex;
